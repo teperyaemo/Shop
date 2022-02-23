@@ -1,0 +1,13 @@
+﻿
+<h1> Все детали </h1>
+<h2>@Model.currCategory</h2>
+@{ 
+    foreach(var Detail in Model.allDetails)
+    {
+        <div>
+            <h2>Название: @Detail.detailName</h2>
+            <p>Модель: @Detail.model</p>
+        </div>
+    }
+}
+
