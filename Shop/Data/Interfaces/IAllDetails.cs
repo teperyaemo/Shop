@@ -9,7 +9,7 @@ namespace Shop.Data.Interfaces
     public interface IAllDetails
     {
         IEnumerable<Detail> Details { get; }
-        IEnumerable<Detail> getVisibleDetails { get; set; }
+        IEnumerable<Detail> getVisibleDetails { get; }
         Detail getObjectDetail(int detailId);
     }
 }

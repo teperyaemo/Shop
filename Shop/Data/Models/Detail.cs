@@ -14,6 +14,7 @@ namespace Shop.Data.Models
         public string gost { get; set; }
         public string drawingNumber { get; set; }
         public string description { get; set; }
+        public string img { get; set; }
         public bool visible { get; set; }
 
         public virtual Category Category { get; set; }

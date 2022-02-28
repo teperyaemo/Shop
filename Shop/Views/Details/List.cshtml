@@ -1,13 +1,18 @@
 ﻿
 <h1> Все детали </h1>
 <h2>@Model.currCategory</h2>
-@{ 
-    foreach(var Detail in Model.allDetails)
-    {
-        <div>
-            <h2>Название: @Detail.detailName</h2>
+<div class="row mt-5 mb-2">
+    @{ 
+        foreach(var Detail in Model.allDetails)
+        {
+        <div class="col-lg-4">
+            <img class="img-thumbnail" src="@Detail.img" alt="@Detail.detailName"/>
+            <h3>@Detail.detailName</h3>
             <p>Модель: @Detail.model</p>
+@*            <p><a class="btn btn-warning" href="#">Подробнее</a></p>*@
+            <p><button href="#" style="padding: 2px, 4px;">Подробнее</button></p>
         </div>
+        }
     }
-}
+</div>
 
