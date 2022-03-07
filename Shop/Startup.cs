@@ -32,6 +32,9 @@ namespace Shop
             services.AddDbContext<AppDBContent>(options => options.UseSqlServer(_confString.GetConnectionString("DefaultConnection")));
             services.AddTransient<IAllDetails, DetailRepository>();
             services.AddTransient<IDetailsCategory, CategoryRepository>();
+            services.AddTransient<ICharecs, CharesRepository>();
+            services.AddTransient<IDetailCharecs, DetailCharacteristicsRepository>();
+            services.AddTransient<IDetailsImages, ImageRepository>();
             services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
@@ -49,7 +52,7 @@ namespace Shop
                 
             }
 
-            
+            DBObjects.Initial(app);
         }
     }
 }

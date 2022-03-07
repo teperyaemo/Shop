@@ -14,8 +14,10 @@ namespace Shop.Data
 
         }
 
-        public DbSet<Detail> Detail {get; set;}
-
+        public DbSet<Detail> Detail { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<Images> Images { get; set; }
+        public DbSet<DetailCharacteristics> DetailCharacteristics { get; set; }
+        public DbSet<Charecs> Charecs { get; set; }
     }
 }
