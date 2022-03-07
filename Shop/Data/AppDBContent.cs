@@ -19,5 +19,6 @@ namespace Shop.Data
         public DbSet<Images> Images { get; set; }
         public DbSet<DetailCharacteristics> DetailCharacteristics { get; set; }
         public DbSet<Charecs> Charecs { get; set; }
+        public DbSet<ShopCartItem> ShopCartItem { get; set; }
     }
 }

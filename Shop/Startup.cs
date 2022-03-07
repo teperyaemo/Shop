@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Shop.Data.Models;
 
 namespace Shop
 {
@@ -35,7 +36,11 @@ namespace Shop
             services.AddTransient<ICharecs, CharesRepository>();
             services.AddTransient<IDetailCharecs, DetailCharacteristicsRepository>();
             services.AddTransient<IDetailsImages, ImageRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sp => ShopCart.GetCart(sp));
             services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +48,7 @@ namespace Shop
         {
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseMvcWithDefaultRoute();
 
             if (env.IsDevelopment())
@@ -52,7 +58,12 @@ namespace Shop
                 
             }
 
-            DBObjects.Initial(app);
+            using(var scope = app.ApplicationServices.CreateScope())
+            {
+                AppDBContent content = scope.ServiceProvider.GetRequiredService<AppDBContent>();
+                DBObjects.Initial(content);
+            }
+            
         }
     }
 }
