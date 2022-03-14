@@ -1,15 +1,19 @@
 ﻿body {
-    background: rgba(243, 243, 243, 1);
+    background: #F2F2F2;
     width: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 header {
-    background: rgba(34, 34, 34, 1);
+    background: #222222;
     width: 100%;
     height: 4.95%;
     padding-left: 4.6875%;
     padding-right: 4.6875%;
+}
+
+footer {
+    background: #F2F2F2;
 }
 
 .nav-link {
@@ -62,6 +66,16 @@ button {
 
 .form-control{
     border-radius: 0;
+}
+
+.homeqwerty{
+    background: #222222;
+}
+
+.penny {
+    background-image: url('../img/rails2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 

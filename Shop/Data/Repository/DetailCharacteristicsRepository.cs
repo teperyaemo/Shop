@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Shop.Data.Interfaces;
 using Shop.Data.Models;
 
 
-namespace Shop.Data.Repository 
+namespace Shop.Data.Repository
 {
     public class DetailCharacteristicsRepository : IDetailCharecs
     {
