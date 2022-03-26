@@ -31,6 +31,7 @@ namespace Shop
             services.AddTransient<ICharecs, CharesRepository>();
             services.AddTransient<IDetailCharecs, DetailCharacteristicsRepository>();
             services.AddTransient<IDetailsImages, ImageRepository>();
+            services.AddTransient<IAllOrders, OrdersRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sp => ShopCart.GetCart(sp));
             services.AddMvc(options => options.EnableEndpointRouting = false);
@@ -44,7 +45,12 @@ namespace Shop
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(name: "categoryFilter", template: "Details/{action}/{category?}", defaults: new { Controller = "Details", action = "List" });
+            });
 
             if (env.IsDevelopment())
             {

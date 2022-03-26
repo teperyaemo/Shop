@@ -21,7 +21,7 @@ namespace Shop.Data.Models
 
         public static ShopCart GetCart(IServiceProvider services)
         {
-            ISession session = services.GetRequiredService<HttpContextAccessor>()?.HttpContext.Session;
+            ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
             var context = services.GetService<AppDBContent>();
             string shopCartId = session.GetString("CartId") ?? Guid.NewGuid().ToString();
 

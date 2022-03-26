@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Data.Interfaces;
+using Shop.Data.Models;
 using Shop.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Shop.Controllers
 {
@@ -15,13 +18,31 @@ namespace Shop.Controllers
             _allCategories = iDetailsCategory;
         }
 
-        public ViewResult List()
+        [Route("Details/List")]
+        [Route("Details/List/{category}")]
+        public ViewResult List(string category)
         {
+            string _category = category;
+            IEnumerable<Detail> details;
+            string currCategory = "";
+            if (string.IsNullOrEmpty(category))
+            {
+                details = _allDetails.Details.OrderBy(i => i.detailId);
+            }
+            else
+            {
+                details = _allDetails.Details.Where(i => i.Category.categoryName == _category).OrderBy(i => i.detailId);
+                currCategory = _category;            
+            }
+
+            var detailObject = new DetailsListViewModel
+            {
+                allDetails = details,
+                currCategory = currCategory
+            };
+
             ViewBag.Title = "Каталог";
-            DetailsListViewModel obj = new DetailsListViewModel();
-            obj.allDetails = _allDetails.Details;
-            obj.currCategory = "Колёсные пары";
-            return View(obj);
+            return View(detailObject);
         }
     }
 }

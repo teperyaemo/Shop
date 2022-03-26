@@ -1,9 +1,10 @@
 ﻿@model Detail
 
 <div class="col-lg-3">
-    <img class="img-thumbnail" src="~/img/placeholder.jpg" alt="@Model.detailName" style="height: 350px; width: 350px;"/>
+    <img class="img-thumbnail" src="~/img/placeholder.jpg" alt="@Model.detailName" style="height: 350px; width: 350px;" />
     <h3>@Model.detailName</h3>
     <p>Модель: @Model.model</p>
-    @*            <p><a class="btn btn-warning" href="#">Подробнее</a></p>*@
+    <p><a class="btn btn-warning" asp-controller="ShopCart" asp-action="addToCart" asp-route-id="@Model.detailId">Добавить в корзину</a></p>
+    @*<p><a class="btn btn-warning" href="#">Подробнее</a></p>*@
     @*<p><button href="#" style="padding: 2px, 4px;">Подробнее</button></p>*@
 </div>
