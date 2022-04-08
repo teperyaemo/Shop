@@ -30,7 +30,7 @@ namespace Shop.Controllers
 
         public RedirectToActionResult addToCart(int id) 
         {
-            var item = _detailRep.Details.FirstOrDefault(i => i.detailId == id);
+            var item = _detailRep.getVisibleDetails.FirstOrDefault(i => i.detailId == id);
             if (item != null)
             {
                 _shopCart.AddToCart(item);

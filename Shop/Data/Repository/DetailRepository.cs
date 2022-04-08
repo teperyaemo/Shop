@@ -15,7 +15,7 @@ namespace Shop.Data.Repository
         {
             this.appDBContent = appDBContent;
         }
-        public IEnumerable<Detail> Details => appDBContent.Detail.Include(c => c.Category);
+        public IEnumerable<Detail> AllDetails => appDBContent.Detail.Include(c => c.Category);
 
         public IEnumerable<Detail> getVisibleDetails => appDBContent.Detail.Where(p => p.visible).Include(c => c.Category);
 

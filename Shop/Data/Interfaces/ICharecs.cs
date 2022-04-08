@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace Shop.Data.Interfaces
 {
-    interface ICharecs
+    public interface ICharecs
     {
-        IEnumerable<Charecs> Charecs { get; }
+        IEnumerable<Charecs> AllCharecs { get; }
+
+        Charecs getObjectCharecs(int id);
     }
 }

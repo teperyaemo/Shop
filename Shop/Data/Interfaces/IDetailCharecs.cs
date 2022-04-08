@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Shop.Data.Interfaces
 {
-    interface IDetailCharecs
+    public interface IDetailCharecs
     {
         IEnumerable<DetailCharacteristics> DetailCharacteristics(int detailId);
     }

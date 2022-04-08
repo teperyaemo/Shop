@@ -1,28 +1,45 @@
 ﻿@model Order
 
-<h3>Оформление заказа</h3>
-<div class="row mb-5">
-    <form asp-action="Checkout" method="post" class="form-horizontal">
-        <div class="form-group">
-            <label asp-for="name"></label>
-            <div class="col-12">
-                <input asp-for="name" class="form-control" />
-                <span asp-validation-for="name" class="text-danger"></span>
+<body class="bg-light">
+    <div class="container">
+        <main>
+            <div class="py-5 text-center">
+                <h2>Оформление заказа</h2>
             </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="email"></label>
-            <div class="col-12">
-                <input asp-for="email" class="form-control" />
-                <span asp-validation-for="email" class="text-danger"></span>
+            <div class="row g-5 mb-5">
+                <div class="col-12 justify-content-center">
+                    <form class="needs-validation" novalidate="" justify-content-center>
+                        <div class="row g-3 justify-content-center">
+                            <form asp-action="Checkout" method="post" class="form-horizontal">
+                                <div class="col-md-7 col-lg-8 form-group">
+                                    <label asp-for="name" class="form-label">Имя</label>
+                                    <input asp-for="name" class="form-control" placeholder="" required="">
+                                    <div class="invalid-feedback">
+                                        Поле обязательно для заполнения.
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-lg-8 form-group">
+                                    <label asp-for="email" class="form-label">Email</label>
+                                    <input asp-for="email" class="form-control" placeholder="you@example.сom">
+                                    <span asp-validation-for="email" class="text-danger"></span>
+                                    <div class="invalid-feedback">
+                                        Please enter a valid email address for shipping updates.
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-lg-8 form-group">
+                                    <label asp-for="phoneNumber" class="form-label">Номер телефона</label>
+                                    <input asp-for="phoneNumber" class="form-control" placeholder="+7 (___) ___-__-__" required="">
+                                    <span asp-validation-for="phoneNumber" class="text-danger"></span>
+                                    <div class="invalid-feedback">
+                                        Please enter your shipping address.
+                                    </div>
+                                </div>
+                            </form>   
+                            <button class="col-md-7 col-lg-8 btn btn-primary btn-lg mt-5" type="submit">Continue to checkout</button>
+                        </div>                        
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="phoneNumber"></label>
-            <div class="col-12">
-                <input asp-for="phoneNumber" class="form-control" />
-                <span asp-validation-for="phoneNumber" class="text-danger"></span>
-            </div>
-        </div>
-    </form>
-        </div>
+        </main>
+    </div>
+</body>

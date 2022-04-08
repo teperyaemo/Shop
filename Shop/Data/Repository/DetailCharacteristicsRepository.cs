@@ -14,6 +14,7 @@ namespace Shop.Data.Repository
         {
             this.appDBContent = appDBContent;
         }
-        public IEnumerable<DetailCharacteristics> DetailCharacteristics(int detailId) => appDBContent.DetailCharacteristics.Where(p => p.Detail.detailId == detailId);
+        public IEnumerable<DetailCharacteristics> DetailCharacteristics(int detailId) => appDBContent.DetailCharacteristics.Where(p => p.Detail.detailId == detailId).OrderBy(i => i.detailCharacteristicsId);
+        
     }
 }
