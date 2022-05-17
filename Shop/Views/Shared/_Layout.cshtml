@@ -25,7 +25,6 @@
         @RenderBody()
     </div>
 
-    @model Addressee
     <footer class="py-3 mx-1 px-4 footer">
         <div class="row">
             <div class="col-3">
@@ -47,12 +46,12 @@
             </div>
                         
             <div class="col-4 offset-1">
-                <form asp-controller="Footer" asp-action="SendMessage" method="post">
+                <form method="post">
                     <h5>Следите за новостями</h5>
                     <p>Подписаться на рассылку.</p>
                     <div class="d-flex w-100 gap-2">
-                        <input asp-for="email" class="form-control" placeholder="you@example.сom">
-                        <span asp-validation-for="email" class="text-danger"></span>
+                        <input class="form-control" placeholder="you@example.сom">
+                        <span class="text-danger"></span>
                         <div class="invalid-feedback">
                             Please enter a valid email address for shipping updates.
                         </div>
