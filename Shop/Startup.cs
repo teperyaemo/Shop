@@ -32,6 +32,7 @@ namespace Shop
             services.AddTransient<IDetailCharecs, DetailCharacteristicsRepository>();
             services.AddTransient<IDetailsImages, ImageRepository>();
             services.AddTransient<IAllOrders, OrdersRepository>();
+            services.AddTransient<EmailService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sp => ShopCart.GetCart(sp));
             services.AddMvc(options => options.EnableEndpointRouting = false);

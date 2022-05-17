@@ -1,31 +1,51 @@
 ﻿using MimeKit;
 using MailKit.Net.Smtp;
 using System.Threading.Tasks;
-namespace SocialApp.Services
+using Microsoft.Extensions.Logging;
+using System;
+
+namespace Shop
 {
     public class EmailService
     {
-        public async Task SendEmailAsync(string email, string subject, string message)
+        private readonly ILogger<EmailService> logger;
+
+        public EmailService(ILogger<EmailService> logger)
         {
-            var emailMessage = new MimeMessage();
+            this.logger = logger;
+        }
 
-            emailMessage.From.Add(new MailboxAddress("Бот русмет", "zakharova-liudmila.917@mail.ru"));
-            //emailMessage.To.Add(new MailboxAddress("", email));
-            emailMessage.To.Add(new MailboxAddress("", "rokudenas@bk.ru"));
-            emailMessage.Subject = subject;
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+        public void SendEmail(string email, string subject, string message)
+        {
+            try
             {
-                Text = message
-            };
+                MimeMessage Message = new MimeMessage();
 
-            using (var client = new SmtpClient())
+                Message.From.Add(new MailboxAddress("Бот русмет", "islam.ibrai33@gmail.com"));
+                //emailMessage.To.Add(new MailboxAddress("", email));
+                Message.To.Add(new MailboxAddress("","rokudenas@bk.ru"));
+                Message.Subject = subject;
+                Message.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                {
+                    Text = message
+                };
+
+                using (SmtpClient client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.ru", 465, true);
+                    client.Authenticate("islam.ibrai33@gmail.com", "Yumn0klu");
+                    client.Send(Message);
+
+                    client.DisconnectAsync(true);
+                    logger.LogInformation("Сообщение успешно отправлено");
+                }                
+            }
+            catch(Exception ex)
             {
-                await client.ConnectAsync("smtp.mail.ru", 465, false);
-                await client.AuthenticateAsync("zakharova-liudmila.917@mail.ru", "Yumn0klu");
-                await client.SendAsync(emailMessage);
-
-                await client.DisconnectAsync(true);
+                logger.LogError(ex.GetBaseException().Message);
             }
         }
+
+
     }
 }

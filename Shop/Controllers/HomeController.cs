@@ -7,6 +7,12 @@ namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly EmailService emailService;
+
+        public HomeController(EmailService emailService)
+        {
+            this.emailService = emailService;
+        }
         public ViewResult Index()
         {
             return View();
@@ -17,5 +23,12 @@ namespace Shop.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Subscribe(string? email)
+        {            
+            emailService.SendEmail(email, "Подписка на рассылку", "тест");
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
