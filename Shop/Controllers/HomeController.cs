@@ -23,12 +23,10 @@ namespace Shop.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Subscribe(string? email)
-        {            
-            emailService.SendEmail(email, "Подписка на рассылку", "тест");
-            return RedirectToAction(nameof(Index));
+        public IActionResult Subscribe()
+        {
+            emailService.SendEmail("//", "test", "test");
+            return RedirectToAction("Index");
         }
     }
 }

@@ -2,6 +2,7 @@
 using Shop.Data.Interfaces;
 using Shop.Data.Models;
 using Shop.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -36,7 +37,7 @@ namespace Shop.Controllers
             else
             {
                 details = _allDetails.getVisibleDetails.Where(i => i.Category.categoryName == _category).OrderBy(i => i.detailId);
-                currCategory = _category;            
+                currCategory = _category;
             }
 
             var detailObject = new DetailsListViewModel
@@ -47,6 +48,7 @@ namespace Shop.Controllers
 
             ViewBag.Title = "Каталог";
             return View(detailObject);
+            
         }
 
         public ViewResult Review(int id)
