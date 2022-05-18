@@ -22,8 +22,7 @@ namespace Shop
                 MimeMessage Message = new MimeMessage();
 
                 Message.From.Add(new MailboxAddress("Бот русмет", "islam.ibrai33@gmail.com"));
-                //emailMessage.To.Add(new MailboxAddress("", email));
-                Message.To.Add(new MailboxAddress("","rokudenas@bk.ru"));
+                Message.To.Add(new MailboxAddress("",email));
                 Message.Subject = subject;
                 Message.Body = new TextPart(MimeKit.Text.TextFormat.Html)
                 {
@@ -33,14 +32,10 @@ namespace Shop
                 using (SmtpClient client = new SmtpClient())
                 {
                     client.Connect("smtp.gmail.com", 465, true);
-                    logger.LogInformation("Подключено");
                     client.Authenticate("islam.ibrai33@gmail.com", "Yumn0klu");
-                    logger.LogInformation("Авторизировано");
                     client.Send(Message);
-                    logger.LogInformation("ОТправлено");
-
                     client.DisconnectAsync(true);
-                    logger.LogInformation("Отключено");
+                    logger.LogInformation("Сообщение успешно отправлено");
                 }                
             }
             catch(Exception ex)

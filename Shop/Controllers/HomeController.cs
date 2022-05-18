@@ -23,9 +23,10 @@ namespace Shop.Controllers
             return View();
         }
 
-        public IActionResult Subscribe()
+        public IActionResult Subscribe(string email)
         {
-            emailService.SendEmail("//", "test", "test");
+            emailService.SendEmail("rokudenas@bk.ru", "Подписка на рассылку", $"Необходимо добавить в адресную книгу почту: {email}");
+            emailService.SendEmail(email, "Подписка на рассылку", "Теперь вы будете получать новости и изменения о компании Русмет");
             return RedirectToAction("Index");
         }
     }

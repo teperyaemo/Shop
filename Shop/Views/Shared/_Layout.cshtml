@@ -46,11 +46,11 @@
             </div>
                         
             <div class="col-4 offset-1">
-                <form asp-controller="Home" asp-action="Subscribe">
+                <form method="post" asp-controller="Home" asp-action="Subscribe" asp-antiforgery="true">
                     <h5>Следите за новостями</h5>
                     <p>Подписаться на рассылку.</p>
                     <div class="d-flex w-100 gap-2">
-                        <input class="form-control" placeholder="you@example.сom">
+                        <input name="email" type="text" class="form-control" placeholder="you@example.сom">
                         <span class="text-danger"></span>
                         <div class="invalid-feedback">
                             Please enter a valid email address for shipping updates.
