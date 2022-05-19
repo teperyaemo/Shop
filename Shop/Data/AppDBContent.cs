@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Shop.Data.Models;
 
 namespace Shop.Data
 {
-    public class AppDBContent : DbContext
+    public class AppDBContent : IdentityDbContext<IdentityUser, IdentityRole, string>
     {
         public AppDBContent(DbContextOptions<AppDBContent> options) : base(options)
         {

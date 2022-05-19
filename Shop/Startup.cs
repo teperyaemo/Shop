@@ -9,6 +9,7 @@ using Shop.Data.Interfaces;
 using Shop.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Shop
 {
@@ -26,6 +27,18 @@ namespace Shop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDBContent>(options => options.UseSqlServer(_confString.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<IdentityUser>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.SignIn.RequireConfirmedAccount = false;
+            })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<AppDBContent>();
+            services.AddControllersWithViews();
             services.AddTransient<IAllDetails, DetailRepository>();
             services.AddTransient<IDetailsCategory, CategoryRepository>();
             services.AddTransient<ICharecs, CharesRepository>();
@@ -46,7 +59,6 @@ namespace Shop
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
-            //app.UseMvcWithDefaultRoute();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");
@@ -60,7 +72,10 @@ namespace Shop
                 
             }
 
-            using(var scope = app.ApplicationServices.CreateScope())
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            using (var scope = app.ApplicationServices.CreateScope())
             {
                 AppDBContent content = scope.ServiceProvider.GetRequiredService<AppDBContent>();
                 DBObjects.Initial(content);
