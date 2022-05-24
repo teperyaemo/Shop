@@ -1,0 +1,55 @@
+﻿@model Shop.Data.Models.Detail
+
+@{
+    ViewData["Title"] = "Details";    
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Detail review</h1>
+
+<div>
+    <h4>Detail</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.detailName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.detailName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Category.categoryName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category.categoryName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.model)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.model)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.gost)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.gost)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.drawingNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.drawingNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.description)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.detailId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
