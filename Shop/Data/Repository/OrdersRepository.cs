@@ -1,4 +1,5 @@
-﻿using Shop.Data.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Data.Interfaces;
 using Shop.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -35,5 +36,10 @@ namespace Shop.Data.Repository
             }
             appDBContent.SaveChanges();
         }
+        public IEnumerable<Order> GetOrders => appDBContent.Order.Include(p => p.orderDetails);
+
+        public IEnumerable<Order> GetOrdersByTime(DateOnly dateTime) => appDBContent.Order.Where(i => DateOnly.FromDateTime(i.orderTime) == dateTime);
+
+        public Order GetObjectorder(int OrderId) => appDBContent.Order.FirstOrDefault(s => s.id == OrderId);
     }
 }

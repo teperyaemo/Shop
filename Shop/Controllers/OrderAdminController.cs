@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Shop.Data;
 using Shop.Data.Interfaces;
 using Shop.Data.Models;
@@ -12,65 +10,61 @@ using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
-    public class AdminController : Controller
+    public class OrderAdminController : Controller
     {
         private readonly AppDBContent _context;
-        private readonly IAllDetails _allDetails;
+        private readonly IAllOrders _allOrders;
+        private readonly IOrderDetail _orderDetail;
 
-        public AdminController(AppDBContent context, IAllDetails iallDetails)
+        public OrderAdminController(AppDBContent context, IAllOrders allOrders, IOrderDetail orderDetail)
         {
             _context = context;
-            _allDetails = iallDetails;
+            _allOrders = allOrders;
+            _orderDetail = orderDetail;
         }
 
         // GET: Movies
-        public IActionResult Index(string currCategory, string searchString)
+        public IActionResult Index(string orderTime, string searchString)
         {
-            IEnumerable<Detail> details = _allDetails.getVisibleDetails;
-
-            // Use LINQ to get list of genres.
-            var categoryQuery = _context.Category.Select(a => new SelectListItem()
-            {
-                Value = a.categoryId.ToString(),
-                Text = a.categoryName
-            }).ToList();
+            IEnumerable<Order> allOrders = _allOrders.GetOrders;
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                details = _allDetails.getVisibleDetails.Where(s => s.detailName!.Contains(searchString));
+                allOrders = _allOrders.GetOrders.Where(s => s.name!.Contains(searchString));
             }
 
-            if (!string.IsNullOrEmpty(currCategory))
+            if (!string.IsNullOrEmpty(orderTime))
             {
-                //details = details.Where(x => x.categoryId == int.Parse(detailCategory.Value));
-                details = _allDetails.getVisibleDetails.Where(i => i.Category.categoryId == int.Parse(currCategory));
+                allOrders = _allOrders.GetOrders.Where(i => (System.DateOnly.FromDateTime(i.orderTime)).ToString() == orderTime);
             }
 
-            var detailsVM = new DetailsListViewModel
+            var ordersVM = new OrdersListViewModel
             {
-                currCategory = currCategory,
-                Categories = categoryQuery,
-                allDetails = details
+                allOrders = allOrders
             };
 
-            return View(detailsVM);
+            return View(ordersVM);
         }
-
         // GET: Movies/Details/5
-        public async Task<IActionResult> DetailReview(int id)
+        public async Task<IActionResult> OrderReview(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var detail = _allDetails.getObjectDetail(id);
-            if (detail == null)
+            var order = _allOrders.GetObjectorder(id);
+            if (order == null)
             {
                 return NotFound();
             }
+            var orderVM = new OneOrderViewModel
+            {
+                Order = order,
+                orderDetails = _orderDetail.GetOrderDetailsById(id)
+            };
 
-            return View(detail);
+            return View(orderVM);
         }
 
         // GET: Movies/Create

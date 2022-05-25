@@ -28,6 +28,7 @@ namespace Shop.Data.Models
         
         [BindNever]
         [ScaffoldColumn(false)]
+        [Display(Name = "Дата")]
         public DateTime orderTime { get; set; }
 
         public List<OrderDetail> orderDetails { get; set; }

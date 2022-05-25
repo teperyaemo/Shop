@@ -1,0 +1,92 @@
+﻿@model Shop.ViewModels.OneOrderViewModel
+
+@{
+    ViewData["Title"] = "Order";    
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Order review</h1>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.phoneNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.phoneNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.orderTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.orderTime)
+        </dd>
+    </dl>
+</div>
+<table class="table">
+   <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetails.First().detail.detailName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetails.First().detail.Category.categoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetails.First().detail.model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetails.First().detail.gost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetails.First().detail.drawingNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.orderDetails)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.detail.detailName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.detail.Category.categoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.detail.model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.detail.gost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.detail.drawingNumber)
+                </td>
+                @*<td>
+                    <a asp-action="Edit" asp-route-id="@item.detailId">Edit</a> |
+                    <a asp-action="DetailReview" asp-route-id="@item.detailId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.detailId">Delete</a>
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.detailId">Edit</a> |*@
+    <a asp-action="Index">Back to List</a>
+</div>

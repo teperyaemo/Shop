@@ -1,0 +1,62 @@
+﻿@model Shop.ViewModels.OrdersListViewModel
+
+@{
+    ViewData["Title"] = "Заказы";    
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Заказы</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-controller="Admin" asp-action="Index" method="get">
+    <p>
+        Дата: <input type="date" asp-for="OrderTime">
+        Название: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Поиск" />
+    </p>
+</form>
+
+<table class="table">
+   <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.allOrders.First().name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.allOrders.First().email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.allOrders.First().phoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.allOrders.First().orderTime)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.allOrders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderTime)
+                </td>
+                <td>@*
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |*@
+                    <a asp-action="DetailReview" asp-route-id="@item.id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

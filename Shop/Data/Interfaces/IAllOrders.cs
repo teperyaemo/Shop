@@ -9,5 +9,9 @@ namespace Shop.Data.Interfaces
     public interface IAllOrders
     {
         void createOrder(Order order);
+
+        IEnumerable<Order> GetOrders { get; }
+        IEnumerable<Order> GetOrdersByTime(DateOnly dateTime);
+        Order GetObjectorder(int OrderId);
     }
 }
