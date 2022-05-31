@@ -9,7 +9,6 @@ namespace Shop.ViewModels
     public class OneDetailViewModel
     {
         public Detail Detail { get; set; }
-        public IEnumerable<Charecs> Charecs { get; set; }
         public IEnumerable<DetailCharacteristics> DetailCharacteristics { get; set; }
     }
 }

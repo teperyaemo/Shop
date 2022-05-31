@@ -15,15 +15,17 @@ namespace Shop.Controllers
     {
         private readonly AppDBContent _context;
         private readonly IAllDetails _allDetails;
+        private readonly IDetailCharecs _detailCharecs;
 
-        public DetailsAdminController(AppDBContent context, IAllDetails iallDetails)
+        public DetailsAdminController(AppDBContent context, IAllDetails iallDetails, IDetailCharecs detailCharecs)
         {
             _context = context;
             _allDetails = iallDetails;
+            _detailCharecs = detailCharecs;
         }
 
         // GET: Movies
-        public IActionResult Details(string currCategory, string searchString)
+        public IActionResult Index(string currCategory, string searchString)
         {
             IEnumerable<Detail> details = _allDetails.getVisibleDetails;
 
@@ -68,8 +70,13 @@ namespace Shop.Controllers
             {
                 return NotFound();
             }
+            var OneDetailVM = new OneDetailViewModel
+            {
+                Detail = detail,
+                DetailCharacteristics = _detailCharecs.DetailCharacteristics(id)
+            };
 
-            return View(detail);
+            return View(OneDetailVM);
         }
 
         // GET: Movies/Create
@@ -89,7 +96,7 @@ namespace Shop.Controllers
             {
                 _context.Add(detail);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction(nameof(Index));
             }
             return View(detail);
         }
@@ -140,7 +147,7 @@ namespace Shop.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction(nameof(Index));
             }
             return View(detail);
         }
@@ -171,7 +178,7 @@ namespace Shop.Controllers
             var detail = await _context.Detail.FindAsync(id);
             _context.Detail.Remove(detail);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Details));
+            return RedirectToAction(nameof(Index));
         }
 
         private bool MovieExists(int id)

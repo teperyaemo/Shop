@@ -23,7 +23,7 @@ namespace Shop.Controllers
             _orderDetail = orderDetail;
         }
 
-        // GET: Movies
+        // GET: Orders
         public IActionResult Index(string orderTime, string searchString)
         {
             IEnumerable<Order> allOrders = _allOrders.GetOrders;
@@ -45,7 +45,7 @@ namespace Shop.Controllers
 
             return View(ordersVM);
         }
-        // GET: Movies/Details/5
+        // GET: OrderAdmin/OrderReview/id
         public async Task<IActionResult> OrderReview(int id)
         {
             if (id == null)
@@ -60,87 +60,14 @@ namespace Shop.Controllers
             }
             var orderVM = new OneOrderViewModel
             {
-                Order = order,
+                Order = _allOrders.GetObjectorder(id),
                 orderDetails = _orderDetail.GetOrderDetailsById(id)
             };
 
             return View(orderVM);
         }
 
-        // GET: Movies/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Movies/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("detailId,categoryId,detailName,model,gost,drawingNumber,description,visible")] Detail detail)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(detail);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(detail);
-        }
-
-        // GET: Movies/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var detail = await _context.Detail.FindAsync(id);
-            if (detail == null)
-            {
-                return NotFound();
-            }
-            return View(detail);
-        }
-
-        // POST: Movies/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("detailId,categoryId,detailName,model,gost,drawingNumber,description,visible")] Detail detail)
-        {
-            if (id != detail.detailId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(detail);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MovieExists(detail.detailId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(detail);
-        }
-
-        // GET: Movies/Delete/5
+        //Get:  OrderAdmin/Delete/id
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,14 +75,14 @@ namespace Shop.Controllers
                 return NotFound();
             }
 
-            var detail = await _context.Detail
-                .FirstOrDefaultAsync(m => m.detailId == id);
-            if (detail == null)
+            var order = await _context.Order
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return View(detail);
+            return View(order);
         }
 
         // POST: Movies/Delete/5
@@ -163,15 +90,15 @@ namespace Shop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var detail = await _context.Detail.FindAsync(id);
-            _context.Detail.Remove(detail);
+            var order = await _context.Order.FindAsync(id);
+            _context.Order.Remove(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MovieExists(int id)
+        private bool OrderExists(int id)
         {
-            return _context.Detail.Any(e => e.detailId == id);
+            return _context.Order.Any(e => e.id == id);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Shop.Data.Interfaces;
 using Shop.Data.Models;
 using System;
@@ -12,21 +13,25 @@ namespace Shop.Controllers
     {
         private readonly IAllOrders allOrders;
         private readonly ShopCart shopCart;
+        private readonly ILogger<OrderController> logger;
 
-        public OrderController(IAllOrders allOrders, ShopCart shopCart)
+        public OrderController(IAllOrders allOrders, ShopCart shopCart, ILogger<OrderController> logger)
         {
             this.allOrders = allOrders;
             this.shopCart = shopCart;
+            this.logger = logger;
         }
 
         public IActionResult Checkout()
         {
+            logger.LogInformation("Checkout [get]");
             return View();
         }
 
         [HttpPost]
-        public IActionResult Checkout(Order order)
+        public async Task<IActionResult> Checkout([Bind("name,email,phoneNumber")]Order order)
         {
+            logger.LogInformation("Checkout [post]");
             shopCart.listShopItems = shopCart.getShopItems();
             if(shopCart.listShopItems.Count == 0)
             {
@@ -36,16 +41,10 @@ namespace Shop.Controllers
             if (ModelState.IsValid)
             {
                 allOrders.createOrder(order);
-                return RedirectToAction("Complete");
+                return RedirectToAction("Checkout");
             }
 
             return View(order);
-        }
-
-        public IActionResult Complete()
-        {
-            ViewBag.Message = "Ваш заказ обработан";
-            return View();
         }
     }
 }

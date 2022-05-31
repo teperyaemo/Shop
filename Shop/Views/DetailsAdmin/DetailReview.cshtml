@@ -1,4 +1,4 @@
-﻿@model Shop.Data.Models.Detail
+﻿@model Shop.ViewModels.OneDetailViewModel
 
 @{
     ViewData["Title"] = "Details";    
@@ -12,44 +12,76 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.detailName)
+            @Html.DisplayNameFor(model => model.Detail.detailName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.detailName)
+            @Html.DisplayFor(model => model.Detail.detailName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category.categoryName)
+            @Html.DisplayNameFor(model => model.Detail.Category.categoryName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.categoryName)
+            @Html.DisplayFor(model => model.Detail.Category.categoryName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.model)
+            @Html.DisplayNameFor(model => model.Detail.model)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.model)
+            @Html.DisplayFor(model => model.Detail.model)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.gost)
+            @Html.DisplayNameFor(model => model.Detail.gost)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.gost)
+            @Html.DisplayFor(model => model.Detail.gost)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.drawingNumber)
+            @Html.DisplayNameFor(model => model.Detail.drawingNumber)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.drawingNumber)
+            @Html.DisplayFor(model => model.Detail.drawingNumber)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.description)
+            @Html.DisplayNameFor(model => model.Detail.description)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.description)
+            @Html.DisplayFor(model => model.Detail.description)
         </dd>
     </dl>
 </div>
+<table class="table">
+   <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DetailCharacteristics.First().Charecs.charecsName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DetailCharacteristics.First().value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DetailCharacteristics.First().measure)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.DetailCharacteristics)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Charecs.charecsName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.measure)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.detailId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Detail.detailId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

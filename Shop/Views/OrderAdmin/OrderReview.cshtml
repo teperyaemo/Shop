@@ -77,16 +77,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.detail.drawingNumber)
                 </td>
-                @*<td>
-                    <a asp-action="Edit" asp-route-id="@item.detailId">Edit</a> |
-                    <a asp-action="DetailReview" asp-route-id="@item.detailId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.detailId">Delete</a>
-                </td>*@
             </tr>
         }
     </tbody>
 </table>
 <div>
-    @*<a asp-action="Edit" asp-route-id="@Model.detailId">Edit</a> |*@
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Вернуться к списку</a>
 </div>

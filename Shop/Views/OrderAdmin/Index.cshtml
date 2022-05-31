@@ -51,9 +51,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.orderTime)
                 </td>
-                <td>@*
-                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |*@
-                    <a asp-action="DetailReview" asp-route-id="@item.id">Details</a> |
+                <td>
+                    <a asp-action="OrderReview" asp-route-id="@item.id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
                 </td>
             </tr>

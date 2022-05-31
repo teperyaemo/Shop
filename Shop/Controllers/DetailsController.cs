@@ -13,14 +13,12 @@ namespace Shop.Controllers
         private readonly IAllDetails _allDetails;
         private readonly IDetailsCategory _allCategories;
         private readonly IDetailCharecs _detailCharecs;
-        private readonly ICharecs _charecs;
 
-        public DetailsController(IAllDetails iAllDetails, IDetailsCategory iDetailsCategory, IDetailCharecs iDetailCharecs, ICharecs iCharecs)
+        public DetailsController(IAllDetails iAllDetails, IDetailsCategory iDetailsCategory, IDetailCharecs iDetailCharecs)
         {
             _allDetails = iAllDetails;
             _allCategories = iDetailsCategory;
             _detailCharecs = iDetailCharecs;
-            _charecs = iCharecs;
         }
 
         [Route("Details/Catalog")]
@@ -56,16 +54,13 @@ namespace Shop.Controllers
             int _id = id;
             Detail detail;
             IEnumerable<DetailCharacteristics> detailCharacteristics;
-            IEnumerable<Charecs> charecs;
             
             detail = _allDetails.getObjectDetail(_id);
-            detailCharacteristics = _detailCharecs.DetailCharacteristics(_id);
-            charecs = _charecs.AllCharecs;
+            detailCharacteristics = _detailCharecs.DetailCharacteristics(id);
 
             var OneDetailObject = new OneDetailViewModel
             {
                 Detail = detail,
-                Charecs = charecs,
                 DetailCharacteristics = detailCharacteristics
             };
 

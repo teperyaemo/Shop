@@ -30,7 +30,7 @@ namespace Shop.Data.Repository
                 var orderDetail = new OrderDetail()
                 {
                     detailId = el.detail.detailId,
-                    orderId = order.id
+                    order = order
                 };
                 appDBContent.OrderDetail.Add(orderDetail);
             }
