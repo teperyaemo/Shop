@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
+    [Authorize]
     public class DetailsAdminController : Controller
     {
         private readonly AppDBContent _context;
@@ -24,7 +26,6 @@ namespace Shop.Controllers
             _detailCharecs = detailCharecs;
         }
 
-        // GET: Movies
         public IActionResult Index(string currCategory, string searchString)
         {
             IEnumerable<Detail> details = _allDetails.getVisibleDetails;
@@ -57,7 +58,6 @@ namespace Shop.Controllers
             return View(detailsVM);
         }
 
-        // GET: Movies/Details/5
         public IActionResult DetailReview(int id)
         {
             if (id == null)
@@ -79,15 +79,11 @@ namespace Shop.Controllers
             return View(OneDetailVM);
         }
 
-        // GET: Movies/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Movies/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("detailId,categoryId,detailName,model,gost,drawingNumber,description,visible")] Detail detail)
@@ -101,7 +97,6 @@ namespace Shop.Controllers
             return View(detail);
         }
 
-        // GET: Movies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,9 +112,6 @@ namespace Shop.Controllers
             return View(detail);
         }
 
-        // POST: Movies/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("detailId,categoryId,detailName,model,gost,drawingNumber,description,visible")] Detail detail)
@@ -152,7 +144,6 @@ namespace Shop.Controllers
             return View(detail);
         }
 
-        // GET: Movies/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -170,7 +161,6 @@ namespace Shop.Controllers
             return View(detail);
         }
 
-        // POST: Movies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

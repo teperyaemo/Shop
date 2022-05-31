@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
 using Shop.Data.Interfaces;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
+    [Authorize]
     public class OrderAdminController : Controller
     {
         private readonly AppDBContent _context;
@@ -22,8 +24,6 @@ namespace Shop.Controllers
             _allOrders = allOrders;
             _orderDetail = orderDetail;
         }
-
-        // GET: Orders
         public IActionResult Index(string orderTime, string searchString)
         {
             IEnumerable<Order> allOrders = _allOrders.GetOrders;
@@ -45,7 +45,6 @@ namespace Shop.Controllers
 
             return View(ordersVM);
         }
-        // GET: OrderAdmin/OrderReview/id
         public async Task<IActionResult> OrderReview(int id)
         {
             if (id == null)
@@ -67,7 +66,6 @@ namespace Shop.Controllers
             return View(orderVM);
         }
 
-        //Get:  OrderAdmin/Delete/id
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -85,7 +83,6 @@ namespace Shop.Controllers
             return View(order);
         }
 
-        // POST: Movies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -10,6 +10,7 @@ using Shop.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Shop
 {
@@ -38,6 +39,16 @@ namespace Shop
             })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppDBContent>();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.Cookie.Name = "RusMetCookie";
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
+                options.LoginPath = "/Identity/Account/Login";
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                options.SlidingExpiration = true;
+            });
             services.AddControllersWithViews();
             services.AddTransient<IAllDetails, DetailRepository>();
             services.AddTransient<IDetailsCategory, CategoryRepository>();
@@ -59,6 +70,9 @@ namespace Shop
         {
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseSession();
             app.UseMvc(routes =>
             {
@@ -72,9 +86,6 @@ namespace Shop
                 app.UseBrowserLink();
                 
             }
-
-            app.UseAuthentication();
-            app.UseAuthorization();
 
             using (var scope = app.ApplicationServices.CreateScope())
             {

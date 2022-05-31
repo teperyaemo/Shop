@@ -18,11 +18,13 @@ namespace Shop.Areas.Identity.Pages.Account
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly EmailService emailService;
 
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender, EmailService emailService)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            this.emailService = emailService;
         }
 
         [BindProperty]
@@ -56,11 +58,9 @@ namespace Shop.Areas.Identity.Pages.Account
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
 
-                await _emailSender.SendEmailAsync(
-                    Input.Email,
+                emailService.SendEmail(Input.Email,
                     "Восстановление пароля",
                     $"Для восстановления пароля перейдите по <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>ссылке</a>.");
-
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
 
