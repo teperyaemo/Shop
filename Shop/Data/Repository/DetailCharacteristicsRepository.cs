@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Shop.Data.Interfaces;
 using Shop.Data.Models;
 
@@ -14,7 +15,7 @@ namespace Shop.Data.Repository
         {
             this.appDBContent = appDBContent;
         }
-        public IEnumerable<DetailCharacteristics> DetailCharacteristics(int detailId) => appDBContent.DetailCharacteristics.Where(p => p.Detail.detailId == detailId).OrderBy(i => i.detailCharacteristicsId);
+        public IEnumerable<DetailCharacteristics> DetailCharacteristics(int detailId) => appDBContent.DetailCharacteristics.Where(p => p.Detail.detailId == detailId).Include(b => b.Charecs);
         
     }
 }

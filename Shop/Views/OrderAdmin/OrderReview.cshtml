@@ -44,9 +44,6 @@
                 @Html.DisplayNameFor(model => model.orderDetails.First().detail.detailName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.orderDetails.First().detail.Category.categoryName)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.orderDetails.First().detail.model)
             </th>
             <th>
@@ -64,9 +61,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.detail.detailName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.detail.Category.categoryName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.detail.model)

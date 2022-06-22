@@ -30,6 +30,7 @@ namespace Shop.Data.Repository
                 var orderDetail = new OrderDetail()
                 {
                     detailId = el.detail.detailId,
+                    detail = el.detail,
                     order = order
                 };
                 appDBContent.OrderDetail.Add(orderDetail);
@@ -40,6 +41,6 @@ namespace Shop.Data.Repository
 
         public IEnumerable<Order> GetOrdersByTime(DateOnly dateTime) => appDBContent.Order.Where(i => DateOnly.FromDateTime(i.orderTime) == dateTime);
 
-        public Order GetObjectorder(int OrderId) => appDBContent.Order.FirstOrDefault(s => s.id == OrderId);
+        public Order GetObjectorder(int OrderId) => appDBContent.Order.Include(p => p.orderDetails).FirstOrDefault(s => s.id == OrderId);
     }
 }

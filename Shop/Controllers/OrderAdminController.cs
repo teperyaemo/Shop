@@ -45,6 +45,12 @@ namespace Shop.Controllers
 
             return View(ordersVM);
         }
+
+
+        public IActionResult Test()
+        {
+            return View();
+        }
         public async Task<IActionResult> OrderReview(int id)
         {
             if (id == null)
@@ -52,11 +58,12 @@ namespace Shop.Controllers
                 return NotFound();
             }
 
-            var order = _allOrders.GetObjectorder(id);
+            /*var order = _allOrders.GetObjectorder(id);
+            order.orderDetails = _orderDetail.GetOrderDetailsById(id).ToList();
             if (order == null)
             {
                 return NotFound();
-            }
+            }*/
             var orderVM = new OneOrderViewModel
             {
                 Order = _allOrders.GetObjectorder(id),

@@ -17,6 +17,6 @@ namespace Shop.Data.Repository
 
         public IEnumerable<OrderDetail> AllOrderDetails => appDBContent.OrderDetail.Include(c => c.orderId);
 
-        public IEnumerable<OrderDetail> GetOrderDetailsById(int orderId) => appDBContent.OrderDetail.Where(c => c.orderId == orderId);
+        public IEnumerable<OrderDetail> GetOrderDetailsById(int orderId) => appDBContent.OrderDetail.Where(c => c.orderId == orderId).Include(b => b.detail);
     }
 }
