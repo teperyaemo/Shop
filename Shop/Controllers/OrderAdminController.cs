@@ -58,15 +58,14 @@ namespace Shop.Controllers
                 return NotFound();
             }
 
-            /*var order = _allOrders.GetObjectorder(id);
-            order.orderDetails = _orderDetail.GetOrderDetailsById(id).ToList();
+            var order = _allOrders.GetObjectorder(id);
             if (order == null)
             {
                 return NotFound();
-            }*/
+            }
             var orderVM = new OneOrderViewModel
             {
-                Order = _allOrders.GetObjectorder(id),
+                Order = order,
                 orderDetails = _orderDetail.GetOrderDetailsById(id)
             };
 

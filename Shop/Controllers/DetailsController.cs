@@ -23,7 +23,7 @@ namespace Shop.Controllers
 
         [Route("Details/Catalog")]
         [Route("Details/Catalog/{category}")]
-        public ViewResult Catalog(string category)
+        public ViewResult Catalog(string category, string searchString)
         {
             string _category = category;
             IEnumerable<Detail> details;
