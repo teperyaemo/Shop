@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Shop.Data.Interfaces;
 using Shop.Data.Models;
 using Shop.ViewModels;
@@ -21,31 +22,44 @@ namespace Shop.Controllers
             _detailCharecs = iDetailCharecs;
         }
 
-        [Route("Details/Catalog")]
-        [Route("Details/Catalog/{category}")]
-        public ViewResult Catalog(string category, string searchString)
+        //[Route("Details/Catalog")]
+        //[Route("Details/Catalog/{category}")]
+        public ViewResult Catalog(string currCategory, string searchString)
         {
-            string _category = category;
             IEnumerable<Detail> details;
-            string currCategory = "";
-            if (string.IsNullOrEmpty(category))
+
+            var categoryQuery = _allCategories.AllCategories.Select(a => new SelectListItem()
             {
-                details = _allDetails.getVisibleDetails.OrderBy(i => i.detailId);
+                Value = a.categoryId.ToString(),
+                Text = a.categoryName
+            }).ToList();
+
+            if (!string.IsNullOrEmpty(searchString) && !string.IsNullOrEmpty(currCategory))
+            {
+                details = _allDetails.getVisibleDetails.Where(s => s.detailName!.Contains(searchString)).Where(i => i.Category.categoryId == int.Parse(currCategory));
+            }
+            else if (!string.IsNullOrEmpty(searchString))
+            {
+                details = _allDetails.getVisibleDetails.Where(s => s.detailName!.Contains(searchString));
+            }
+            else if (!string.IsNullOrEmpty(currCategory))
+            {
+                details = _allDetails.getVisibleDetails.Where(i => i.Category.categoryId == int.Parse(currCategory));
             }
             else
             {
-                details = _allDetails.getVisibleDetails.Where(i => i.Category.categoryName == _category).OrderBy(i => i.detailId);
-                currCategory = _category;
+                details = _allDetails.getVisibleDetails;
             }
 
-            var detailObject = new DetailsListViewModel
+            var detailsList = new DetailsListViewModel
             {
+                Categories = categoryQuery,
                 allDetails = details,
                 currCategory = currCategory
             };
 
             ViewBag.Title = "Каталог";
-            return View(detailObject);
+            return View(detailsList);
             
         }
 

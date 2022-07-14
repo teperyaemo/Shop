@@ -46,11 +46,6 @@ namespace Shop.Controllers
             return View(ordersVM);
         }
 
-
-        public IActionResult Test()
-        {
-            return View();
-        }
         public async Task<IActionResult> OrderReview(int id)
         {
             if (id == null)

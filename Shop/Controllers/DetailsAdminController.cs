@@ -28,26 +28,31 @@ namespace Shop.Controllers
 
         public IActionResult Index(string currCategory, string searchString)
         {
-            IEnumerable<Detail> details = _allDetails.getVisibleDetails;
+            IEnumerable<Detail> details;
 
-            // Use LINQ to get list of genres.
             var categoryQuery = _context.Category.Select(a => new SelectListItem()
             {
                 Value = a.categoryId.ToString(),
                 Text = a.categoryName
             }).ToList();
 
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString) && !string.IsNullOrEmpty(currCategory))
+            {
+                details = _allDetails.getVisibleDetails.Where(s => s.detailName!.Contains(searchString)).Where(i => i.Category.categoryId == int.Parse(currCategory));
+            }
+            else if (!string.IsNullOrEmpty(searchString))
             {
                 details = _allDetails.getVisibleDetails.Where(s => s.detailName!.Contains(searchString));
             }
-
-            if (!string.IsNullOrEmpty(currCategory))
+            else if (!string.IsNullOrEmpty(currCategory))
             {
-                //details = details.Where(x => x.categoryId == int.Parse(detailCategory.Value));
                 details = _allDetails.getVisibleDetails.Where(i => i.Category.categoryId == int.Parse(currCategory));
             }
-
+            else
+            {
+                details = _allDetails.getVisibleDetails;
+            }
+                
             var detailsVM = new DetailsListViewModel
             {
                 currCategory = currCategory,
@@ -130,7 +135,7 @@ namespace Shop.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieExists(detail.detailId))
+                    if (!DetailExists(detail.detailId))
                     {
                         return NotFound();
                     }
@@ -171,7 +176,7 @@ namespace Shop.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MovieExists(int id)
+        private bool DetailExists(int id)
         {
             return _context.Detail.Any(e => e.detailId == id);
         }

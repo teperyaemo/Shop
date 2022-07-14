@@ -1,23 +1,23 @@
 ﻿@model Shop.ViewModels.DetailsListViewModel
 
 @{
-    ViewData["Title"] = "Detail";    
+    ViewData["Title"] = "Админитратор: Детали";    
     Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Detail</h1>
+<h1>Детали</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-dark" asp-action="Create">Создать</a>
 </p>
 <form asp-controller="DetailsAdmin" asp-action="Index" method="get">
     <p>
-        <select asp-for="currCategory" asp-items="Model.Categories">
-            <option value="">All</option>
+        <select class="form-select col-3" asp-for="currCategory" asp-items="Model.Categories">
+            <option value="">Все категории</option>
         </select>
 
-        Название: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Поиск" />
+        Название: <input class="form-control" type="text" asp-for="SearchString" />
+        <input class="btn btn-dark col-2 mt-2 align-content-center" type="submit" value="Поиск" />
     </p>
 </form>
 

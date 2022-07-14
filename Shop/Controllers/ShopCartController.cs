@@ -37,5 +37,15 @@ namespace Shop.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public RedirectToActionResult deleteFromCart(int id)
+        {
+            var item = _shopCart.GetShopCartItem(id);
+            if (item != null)
+            {
+                _shopCart.deleteFromCart(item);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

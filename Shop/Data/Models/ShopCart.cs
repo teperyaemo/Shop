@@ -40,9 +40,18 @@ namespace Shop.Data.Models
 
             appDBContent.SaveChanges();
         }
+
+        public void deleteFromCart(ShopCartItem shopCartItem)
+        {
+            appDBContent.Remove(shopCartItem);
+            appDBContent.SaveChanges();
+        }
+
         public List<ShopCartItem> getShopItems()
         {
             return appDBContent.ShopCartItem.Where(c => c.shopCartId == ShopCartId).Include(s => s.detail).ToList();
         }
+
+        public ShopCartItem GetShopCartItem(int id) => appDBContent.ShopCartItem.Find(id);
     }
 }

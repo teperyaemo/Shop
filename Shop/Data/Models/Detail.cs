@@ -22,6 +22,8 @@ namespace Shop.Data.Models
         [Display(Name = "Номер чертежа")]
         public string drawingNumber { get; set; }
 
+        public string Image { get; set; }
+
         [Display(Name = "Описание")]
         public string description { get; set; }
 

@@ -1,4 +1,9 @@
-﻿body {
+﻿html{
+    height: 100%;
+}
+
+body {
+    height: 100%;
     background: #F2F2F2;
     width: 100%;
     overflow-y: scroll;
@@ -7,13 +12,13 @@
 header {
     background: #222222;
     width: 100%;
-    height: 4.95%;
-    padding-left: 4.6875%;
-    padding-right: 4.6875%;
 }
 
 footer {
     background: #F2F2F2;
+    bottom: 0;
+    width: 100%;
+    height: 160px;
 }
 
 .nav-link {
@@ -58,11 +63,11 @@ button {
     transition: all 500ms ease;
 }
 
-    button:hover {
-        background: rgba(0,0,0,0);
-        color: #222222;
-        box-shadow: inset 0 0 0 2px #222222;
-    }
+button:hover {
+    background: rgba(0,0,0,0);
+    color: #222222;
+    box-shadow: inset 0 0 0 2px #222222;
+}
 
 .form-control{
     border-radius: 0;
@@ -76,6 +81,16 @@ button {
     background-image: url('../img/rails2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.wrapper {
+    min-height: 100%;
+    margin-bottom: -160px;
+}
+
+
+.push {
+    height: 160px;
 }
 
 

@@ -78,6 +78,7 @@ namespace Shop
             {
                 routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(name: "categoryFilter", template: "Details/{action}/{category?}", defaults: new { Controller = "Details", action = "Catalog" });
+               
             });
 
             if (env.IsDevelopment())
